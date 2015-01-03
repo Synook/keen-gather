@@ -5,14 +5,14 @@ $ ->
   switchToList = ->
     $('#map').css display: 'none'
     $('#list-container').css display: 'block'
-    $('#list-button').css backgroundColor: '#fff'
-    $('#map-button').css backgroundColor: '#eee'
+    $('#list-button').css color: '#000'
+    $('#map-button').css color: '#999'
 
   switchToMap = ->
     $('#map').css display: 'block'
     $('#list-container').css display: 'none'
-    $('#list-button').css backgroundColor: '#eee'
-    $('#map-button').css backgroundColor: '#fff'
+    $('#list-button').css color: '#999'
+    $('#map-button').css color: '#000'
 
   socket.on 'connect', ->
 
@@ -109,19 +109,20 @@ $ ->
         marker.addTo map
         marker
 
+    make_click = (coords) ->
+      return ->
+        map.setView coords
+        switchToMap()
     users = new User (users) ->
+      $('#num-people').html Object.keys(users).length
       list = $ '#list'
       for element in list.find 'li'
         if element.id[5..] not in users
           element.remove()
       for id, user of users
         if !(element = list.find "#list-#{id}").length
-          list.prepend $('<li></li>').append($("<a>#{user.name}</a>")
-            .bind('click', ->
-              console.log user
-              map.setView user.coords
-              switchToMap()
-            )
+          list.prepend $('<li></li>').append($("<a>#{user.name || '?'}</a>")
+            .bind('click', make_click user.coords)
           )
 
     if navigator.geolocation
@@ -151,6 +152,6 @@ $ ->
       false
 
   $('#list-container').css display: 'none'
-  $('#list-button').css backgroundColor: '#eee'
+  $('#list-button').css color: '#999'
   $('#list-button').bind 'click', switchToList
   $('#map-button').bind 'click', switchToMap
