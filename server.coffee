@@ -43,4 +43,6 @@ io.on 'connection', (socket) ->
     console.log room
     socket.emit 'listed', users.room(room)
 
-http.listen process.env.port || 5000
+port = process.env.PORT || 5000
+http.listen port
+console.log "Listening on port #{port}."
