@@ -43,4 +43,4 @@ io.on 'connection', (socket) ->
     console.log room
     socket.emit 'listed', users.room(room)
 
-http.listen 5000
+http.listen process.env.port || 5000

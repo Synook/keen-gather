@@ -5,103 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes"> 
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css">
-    <style type="text/css">
-      html, body, #map {
-        height:100%;
-        width:100%;
-        margin:0px;
-        padding:0px;
-      }
-      * {
-        margin:0px;
-        padding:0px;
-        font-family:helvetica,arial,sans-serif;
-      }
-      #ping {
-        position:absolute;
-        bottom:20px;
-        right:20px;
-        -webkit-appearance:none;
-        border:1px solid #E65100;
-        background-color:#EF6C00;
-        padding:10px;
-        font-size:16pt;
-        color:#FFF;
-        border-radius:5px;
-        display:none;
-      }
-      #list-container {
-        padding:20px;
-        display:none;
-      }
-      #identify {
-        width:100%;
-        position:absolute;
-        bottom:0px;
-        left:0px;
-        box-sizing:border-box;
-        padding:20px;
-        display:none;
-      }
-      #identify-name {
-        width:100%;
-        box-sizing:border-box;
-        padding:10px;
-        -webkit-appearance:none;
-        font-size:16pt;
-        border:1px solid #CCC;
-        border-radius:3px;
-      }
-      nav {
-        height:40px;
-      }
-      nav a {
-        display:block;
-        float:left;
-        width:50%;
-        height:40px;
-        text-align:center;
-        line-height:40px;
-        font-size:16pt;
-      }
-      #list a {
-        height:40px;
-        display:block;
-        line-height:40px;
-        width:100%;
-        font-size:12pt;
-        border-top:1px solid #EEE;
-      }
-      #list li:first-child a {
-        border-top:0px;
-      }
-      #list {
-        list-style-type:none;
-      }
-      a {
-        cursor:pointer;
-      }
-      #status {
-        position:absolute;
-        bottom:10px;
-        left:10px;
-        color:#000;
-        text-shadow:0px 0px 1px #FFF;
-        font-size:10pt;
-      }
-      #num-people {
-        height:25px;
-        margin-left:5px;
-        background-color:#900;
-        color:#FFF;
-        font-size:10pt;
-        line-height:25px;
-        border-radius:15px;
-        min-width:25px;
-        display:inline-block;
-        vertical-align:middle;
-      }
-    </style>
+    <link rel="stylesheet" href="stylesheet.css">
 
   </head>
 
@@ -122,8 +26,6 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
     <script src="main.js"></script>
   </body>

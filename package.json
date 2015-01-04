@@ -16,8 +16,7 @@
     "grunt-contrib-coffee": "^0.12.0",
     "grunt-contrib-copy": "^0.7.0",
     "grunt-contrib-jshint": "~0.10.0",
-    "grunt-contrib-nodeunit": "~0.4.1",
-    "grunt-contrib-uglify": "~0.5.0",
+    "grunt-contrib-less": "^1.0.0",
     "grunt-run": "^0.3.0",
     "grunt-serve": "^0.1.6",
     "grunt-slim": "^0.1.0"

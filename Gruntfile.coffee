@@ -6,6 +6,11 @@ module.exports = (grunt) ->
       compile:
         files:
           'public/main.js': ['src/*.coffee']
+          'server.js': ['server.coffee']
+    less:
+      main:
+        files:
+          'public/stylesheet.css': ['src/stylesheet.less']
     copy:
       main:
         expand: true,
@@ -15,11 +20,13 @@ module.exports = (grunt) ->
         flatten: true
     run:
       server:
-        cmd: 'coffee',
-        args: ['server.coffee']
+        cmd: 'node',
+        args: ['server.js']
 
   grunt.loadNpmTasks 'grunt-contrib-coffee'
+  grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-copy'
   grunt.loadNpmTasks 'grunt-run'
 
-  grunt.registerTask 'default', ['coffee', 'copy', 'run:server']
+  grunt.registerTask 'build', ['coffee', 'less', 'copy']
+  grunt.registerTask 'default', ['build', 'run:server']
