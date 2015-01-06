@@ -1,6 +1,7 @@
 $ ->
   MAX_AGE = 60 * 5 # seconds
   DEFAULT_NAME = '???'
+  VERSION = 2
 
   socket = io()
 
@@ -28,7 +29,6 @@ $ ->
 
       constructor: (@render) ->
         @have_listed = false
-        @id = (localStorage.id ||= Math.random())
         @name = localStorage.name
         @room = window.location.hash[1..] || 'default'
         console.log @room
@@ -37,6 +37,16 @@ $ ->
         @timeouts = {}
         socket.on 'located', (data) => @located data
         socket.on 'listed', (data) => @listed data
+
+      id: () ->
+        if (
+          !localStorage.id || !localStorage.version ||
+          parseInt(localStorage.version) < VERSION
+        )
+          localStorage.id = Math.random().toString()[2..]
+          localStorage.version = VERSION
+        else
+          localStorage.id
 
       set_name: (name) ->
         localStorage.name = name
@@ -48,7 +58,7 @@ $ ->
         return if !coords
 
         user = 
-          id: @id
+          id: @id()
           name: @name
           room: @room
           coords: coords
@@ -69,13 +79,13 @@ $ ->
       located: (user, defer) ->
         console.log 'located', user, defer
 
-        content = if user.id == @id then '<strong>YOU</strong>' else user.name
+        #content = if user.id == @id then '<strong>YOU</strong>' else user.name
 
         if @users[user.id]
           user.marker = @users[user.id].marker
           user.marker.update user.coords
           clearTimeout @timeouts[user.id]
-          user.marker.setPopupContent content
+          $(".user-marker-#{user.id}").html user.name
         else
           user.marker = @new_marker user
           #user.marker.bindPopup content
@@ -107,13 +117,15 @@ $ ->
         @render @users
 
       new_marker: (user) ->
-        icon = L.divIcon
-          className: 'user-marker'
-          html: user.name || '???'
-          iconSize: null
-        marker = L.marker user.coords, icon: icon
+        marker = L.marker user.coords, icon: @icon(user)
         marker.addTo map
         marker
+
+      icon: (user) ->
+        L.divIcon
+          className: "user-marker user-marker-#{user.id}"
+          html: user.name || DEFAULT_NAME
+          iconSize: null
 
     make_click = (coords) ->
       return ->
@@ -142,20 +154,20 @@ $ ->
 
         i = 0
         setInterval ->
-          $('#status').html "locating #{i++}... #{socket.connected}"
+          #$('#status').html "locating #{i++}... #{socket.connected}"
           users.locate()
         , 5000
 
       , (err) ->
         alert('SADFACE')
 
-  if !localStorage.name
-    $('#identify').css display: 'block'
-    $('#identify').bind 'submit', ->
-      console.log "name: ", $('#identify-name').val()
-      users.set_name $('#identify-name').val()
-      $('#identify').css display: 'none'
-      false
+    if !localStorage.name
+      $('#identify').css display: 'block'
+      $('#identify').bind 'submit', ->
+        console.log "name: ", $('#identify-name').val()
+        users.set_name $('#identify-name').val()
+        $('#identify').css display: 'none'
+        false
 
   $('#list-button').bind 'click', switchToList
   $('#map-button').bind 'click', switchToMap
