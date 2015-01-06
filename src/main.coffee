@@ -98,14 +98,15 @@ $ ->
           console.log "fading #{user.id}"
           if (opacity -= 0.1) > 0.1
             user.marker.setOpacity opacity
-            setTimeout fade, MAX_AGE / 10 * 1000
           else
             map.removeLayer user.marker
             delete @users[user.id]
+            clearInterval @timeouts[user.id]
             @render @users
 
         user.marker.setOpacity opacity
-        @timeouts[user.id] = setTimeout fade, MAX_AGE / 10 * 1000
+        clearInterval @timeouts[user.id]
+        @timeouts[user.id] = setInterval fade, MAX_AGE / 10 * 1000
 
         @users[user.id] = user
         @render @users unless defer
