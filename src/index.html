@@ -5,21 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes"> 
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css">
+    <link href="http://fonts.googleapis.com/css?family=Roboto:100,300,400" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="stylesheet.css">
 
   </head>
 
   <body>
-
-    <nav>
-      <a id="list-button">People <span id="num-people">?</span></a>
-      <a id="map-button">Map</a>
-    </nav>
     <div id="list-container"><ul id="list"></ul></div>
     <div id="map"></div>
     <form id="identify">
       <input type="text" id="identify-name" placeholder="Identify yourself">
     </form>
+    <header>
+      <h1>Keen-gather</h1>
+      <nav>
+        <a id="list-button">People <span id="num-people">?</span></a>
+        <a id="map-button" class="active">Map</a>
+      </nav>
+    </header>
     <div id="status"></div>
 
     <!-- libraries -->

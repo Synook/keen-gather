@@ -8,3 +8,5 @@ Real-time browser-based location tracking system.
   - Way to get back to that page / change name
 - Better markers with names/abbreviations and differentiation for own marker
 - Better large-screen interface
+- Better distribution system
+- *Event location - special marker(s) indicating static locations*

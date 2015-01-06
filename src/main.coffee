@@ -1,18 +1,18 @@
 $ ->
-  MAX_AGE = 60 # seconds
+  MAX_AGE = 60 * 5 # seconds
   socket = io()
 
   switchToList = ->
     $('#map').css display: 'none'
     $('#list-container').css display: 'block'
-    $('#list-button').css color: '#000'
-    $('#map-button').css color: '#999'
+    $('#list-button').addClass 'active'
+    $('#map-button').removeClass 'active'
 
   switchToMap = ->
     $('#map').css display: 'block'
     $('#list-container').css display: 'none'
-    $('#list-button').css color: '#999'
-    $('#map-button').css color: '#000'
+    $('#list-button').removeClass 'active'
+    $('#map-button').addClass 'active'
 
   socket.on 'connect', ->
 
@@ -75,8 +75,8 @@ $ ->
           clearTimeout @timeouts[user.id]
           user.marker.setPopupContent content
         else
-          user.marker = @new_marker user.coords
-          user.marker.bindPopup content
+          user.marker = @new_marker user
+          #user.marker.bindPopup content
 
         opacity = (MAX_AGE - user.age) / MAX_AGE
         console.log opacity
@@ -104,8 +104,12 @@ $ ->
           @located user, true
         @render @users
 
-      new_marker: (coords) ->
-        marker = L.marker coords
+      new_marker: (user) ->
+        icon = L.divIcon
+          className: 'user-marker'
+          html: user.name
+          iconSize: null
+        marker = L.marker user.coords, icon: icon
         marker.addTo map
         marker
 
@@ -151,7 +155,5 @@ $ ->
       $('#identify').css display: 'none'
       false
 
-  $('#list-container').css display: 'none'
-  $('#list-button').css color: '#999'
   $('#list-button').bind 'click', switchToList
   $('#map-button').bind 'click', switchToMap
