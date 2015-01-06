@@ -34,7 +34,7 @@ io.on 'connection', (socket) ->
   socket.on 'locate', (data) ->
     data.time = Date.now()
     data.age = 0
-    data.name = '?' unless data.name
+    data.name = '???' unless data.name
     console.log data
     socket.join(room = data.room) unless room
     users.update data

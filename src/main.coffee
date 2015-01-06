@@ -1,5 +1,7 @@
 $ ->
   MAX_AGE = 60 * 5 # seconds
+  DEFAULT_NAME = '???'
+
   socket = io()
 
   switchToList = ->
@@ -107,7 +109,7 @@ $ ->
       new_marker: (user) ->
         icon = L.divIcon
           className: 'user-marker'
-          html: user.name
+          html: user.name || '???'
           iconSize: null
         marker = L.marker user.coords, icon: icon
         marker.addTo map
