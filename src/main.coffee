@@ -29,14 +29,6 @@ $ ->
     $('.leaflet-control-zoom').css display: 'block'
     $('#entry, #entry div div').css display: 'none'
 
-  check_name = ->
-    if !localStorage.name
-      displayModal 'no-identity'
-      $('#identify').bind 'submit', ->
-        users.set_name $('#identify-name').val()
-        hideModal()
-        false
-
   map = L.map('map').setView [51.505, -0.09], 13
   L.tileLayer(
     'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
@@ -77,6 +69,14 @@ $ ->
         , 5000
 
       , (err) -> displayModal 'location-error'
+
+      check_name = ->
+        if !localStorage.name
+          displayModal 'no-identity'
+          $('#identify').bind 'submit', ->
+            users.set_name $('#identify-name').val()
+            hideModal()
+            false
 
       if !window.location.hash[1..]
         displayModal 'no-hash'
