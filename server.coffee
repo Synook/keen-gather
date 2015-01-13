@@ -34,7 +34,9 @@ io.on 'connection', (socket) ->
     data.time = Date.now()
     data.age = 0
     data.name = '???' unless data.name
-    socket.join(room = data.room) unless room
+    unless room == data.room
+      socket.leave room unless room is null
+      socket.join(room = data.room) 
     users.update data
     io.to(room).emit 'located', data
   socket.on 'list', ->

@@ -11,19 +11,58 @@
   </head>
 
   <body>
-    <div id="list-container"><ul id="list"></ul></div>
-    <div id="map"></div>
-    <form id="identify">
-      <input type="text" id="identify-name" placeholder="Identify yourself">
-    </form>
     <header>
-      <h1>Keen-gather</h1>
+      <h1>Gather <span id="map-code"></span></h1>
       <nav>
-        <a id="list-button">People <span id="num-people">?</span></a>
-        <a id="map-button" class="active">Map</a>
+        <a href="#map" class="active">Map</a>
+        <a href="#list-container">People <span id="num-people">?</span></a>
+        <a href="#options">Options</a>
       </nav>
     </header>
-    <div id="status"></div>
+    <div id="main">
+      <div id="list-container">
+        <ul id="list"></ul>
+      </div>
+      <div id="map"></div>
+      <div id="options">
+        <p id="url">To share this map with others, send them this link: <a></a>.</p>
+      </div>
+    </div>
+
+    <div id="entry">
+      <div>
+        <div id="no-hash">
+          <p>
+            Welcome to <em>Gather</em>, a small web-app which can help you locate your friends. To begin, press the button below to generate a random map code which will uniquely identify your event. If you are looking for an existing event, please ask for the unique URL to be shared with you.
+          </p>
+          <p>
+            <button id="create-code">Create map code</button>
+          </p>
+        </div>
+        <div id="new-hash">
+          <p>
+            Your new map code is <span class="code"></span>. To share this code with other people, send them this URL: <span class="url"></span>.
+          </p>
+          <p><button>Proceed to map</button></p>
+        </div>
+        <div id="no-identity">
+          <p>Welcome to <em>Gather</em>. To begin, enter your name below.</p>
+          <form id="identify">
+            <input type="text" id="identify-name" placeholder="Identify yourself">
+          </form>
+        </div>
+        <div id="location-unable">
+          <p>
+            Unfortunately, your browser or system does not seem to have location services enabled, which is required for this web application to work properly.
+          </p>
+        </div>
+        <div id="location-error">
+          <p>
+            This web application requires location services to work. Unfortunately, access to your location has been denied. Please refresh the browser and try again.
+          </p>
+        </div>
+      </div>
+    </div>
 
     <!-- libraries -->
 

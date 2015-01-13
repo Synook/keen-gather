@@ -18,6 +18,12 @@ module.exports = (grunt) ->
         src: '*.html',
         dest: 'public/',
         flatten: true
+    browserify:
+      dist:
+        files:
+          'public/main.js': ['src/*.coffee']
+      options:
+        transform: ['coffeeify']
     run:
       server:
         cmd: 'node',
@@ -26,7 +32,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-less'
   grunt.loadNpmTasks 'grunt-contrib-copy'
+  grunt.loadNpmTasks 'grunt-browserify'
   grunt.loadNpmTasks 'grunt-run'
 
-  grunt.registerTask 'build', ['coffee', 'less', 'copy']
+  grunt.registerTask 'build', ['browserify', 'less', 'copy']
   grunt.registerTask 'default', ['build', 'run:server']
