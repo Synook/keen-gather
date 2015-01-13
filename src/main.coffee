@@ -30,12 +30,12 @@ $ ->
     $('#entry, #entry div div').css display: 'none'
 
   check_name = ->
-  if !localStorage.name
-    displayModal 'no-identity'
-    $('#identify').bind 'submit', ->
-      users.set_name $('#identify-name').val()
-      hideModal()
-      false
+    if !localStorage.name
+      displayModal 'no-identity'
+      $('#identify').bind 'submit', ->
+        users.set_name $('#identify-name').val()
+        hideModal()
+        false
 
   map = L.map('map').setView [51.505, -0.09], 13
   L.tileLayer(
