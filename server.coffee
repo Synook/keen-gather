@@ -31,6 +31,7 @@ users = new Users()
 io.on 'connection', (socket) ->
   room = null
   socket.on 'locate', (data) ->
+    #console.log data
     data.time = Date.now()
     data.age = 0
     data.name = '???' unless data.name

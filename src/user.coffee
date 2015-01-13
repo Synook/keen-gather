@@ -36,9 +36,8 @@ class User
     @locate()
 
   locate: (coords) ->
-    return if @room is null
     if coords then @coords = coords else coords = @coords
-    return if !coords
+    return if !coords || @room == ''
 
     user = 
       id: @id()
@@ -46,7 +45,6 @@ class User
       room: @room
       coords: coords
       age: 0
-      #time: Date.now()
 
     @socket.emit 'locate', user
     @located user
@@ -60,7 +58,6 @@ class User
   identify: (name) -> @name = name
 
   located: (user, defer) ->
-
     if @users[user.id]
       user.marker = @users[user.id].marker
       user.marker.update user.coords
