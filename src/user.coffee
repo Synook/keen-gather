@@ -4,9 +4,10 @@ DEFAULT_NAME = '???'
 
 class User
 
-  constructor: (@room, @map, @socket, @render) ->
+  constructor: (room, @map, @socket, @render) ->
     @have_listed = false
     @name = localStorage.name || DEFAULT_NAME
+    @set_room room
 
     @users = {}
     @timeouts = {}
@@ -27,7 +28,12 @@ class User
     localStorage.name = @name
     @locate()
 
-  set_room: (@room) -> @locate()
+  set_room: (@room) ->
+    url = window.location.origin + window.location.pathname + '#' + @room
+    $('a.url').attr('href', url).html url
+    $('strong.code').html @room
+    $('#map-code').html if @room then "##{@room}" else ''
+    @locate()
 
   locate: (coords) ->
     return if @room is null

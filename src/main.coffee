@@ -5,7 +5,7 @@ $ ->
   socket = io()
 
   randomLetter = ->
-    code = Math.round Math.random() * 26*2
+    code = Math.round Math.random() * (26 * 2 - 1)
     if code < 26 then code += 65 else code += 97 - 26
     String.fromCharCode code
 
@@ -83,7 +83,7 @@ $ ->
         $('#map-code-input').bind 'keyup', ->
           str = (if $(this).val() then 'Use' else 'New') + ' map code'
           $('#create-code').html str
-        $('#create-code').bind 'click', ->
+        proceed = ->
           if code = $('#map-code-input').val()
             hideModal()
           else
@@ -93,11 +93,13 @@ $ ->
             $('#new-hash .url').attr('href', url).html url
             $('#new-hash .code').html code
             $('#new-hash button').on 'click', -> hideModal()
+          console.log code
           window.location.hash = code
           users.set_room code
           $('#map-code').html window.location.hash
           check_name()
+        $('#existing-map-code').bind 'submit', ->
+          proceed()
+          return false
+        $('#create-code').bind 'click', proceed
       else check_name()
-
-      $('#url a').attr('href', window.location.href).html window.location.href
-      $('#map-code').html window.location.hash
