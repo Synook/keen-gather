@@ -1,11 +1,12 @@
-MAX_AGE = 60 * 5 # seconds
+MAX_AGE = 60 * 10 # seconds
 VERSION = 2
+DEFAULT_NAME = '???'
 
 class User
 
   constructor: (@room, @map, @socket, @render) ->
     @have_listed = false
-    @name = localStorage.name
+    @name = localStorage.name || DEFAULT_NAME
 
     @users = {}
     @timeouts = {}

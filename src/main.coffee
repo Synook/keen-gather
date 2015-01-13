@@ -29,6 +29,14 @@ $ ->
     $('.leaflet-control-zoom').css display: 'block'
     $('#entry, #entry div div').css display: 'none'
 
+  check_name = ->
+  if !localStorage.name
+    displayModal 'no-identity'
+    $('#identify').bind 'submit', ->
+      users.set_name $('#identify-name').val()
+      hideModal()
+      false
+
   map = L.map('map').setView [51.505, -0.09], 13
   L.tileLayer(
     'http://{s}.tile.osm.org/{z}/{x}/{y}.png',
@@ -69,22 +77,27 @@ $ ->
         , 5000
 
       , (err) -> displayModal 'location-error'
-        
 
       if !window.location.hash[1..]
         displayModal 'no-hash'
+        $('#map-code-input').bind 'keyup', ->
+          str = (if $(this).val() then 'Use' else 'New') + ' map code'
+          $('#create-code').html str
         $('#create-code').bind 'click', ->
-          code = (randomLetter() for i in [1..4]).join ''
+          if code = $('#map-code-input').val()
+            hideModal()
+          else
+            code = (randomLetter() for i in [1..4]).join ''
+            displayModal 'new-hash'
+            url = "#{window.location.href}##{code}"
+            $('#new-hash .url').attr('href', url).html url
+            $('#new-hash .code').html code
+            $('#new-hash button').on 'click', -> hideModal()
           window.location.hash = code
           users.set_room code
-          displayModal 'new-hash'
-
-      if !localStorage.name
-        displayModal 'no-identity'
-        $('#identify').bind 'submit', ->
-          users.set_name $('#identify-name').val()
-          hideModal()
-          false
+          $('#map-code').html window.location.hash
+          check_name()
+      else check_name()
 
       $('#url a').attr('href', window.location.href).html window.location.href
       $('#map-code').html window.location.hash
