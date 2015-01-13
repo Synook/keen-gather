@@ -5,7 +5,6 @@ module.exports = (grunt) ->
     coffee:
       compile:
         files:
-          'public/main.js': ['src/*.coffee']
           'server.js': ['server.coffee']
     less:
       main:
@@ -35,5 +34,5 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-browserify'
   grunt.loadNpmTasks 'grunt-run'
 
-  grunt.registerTask 'build', ['browserify', 'less', 'copy']
+  grunt.registerTask 'build', ['coffee', 'browserify', 'less', 'copy']
   grunt.registerTask 'default', ['build', 'run:server']
