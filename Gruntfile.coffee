@@ -17,6 +17,12 @@ module.exports = (grunt) ->
         src: '*.html',
         dest: 'public/',
         flatten: true
+      assets:
+        expand: true,
+        cwd: 'assets/',
+        src: '*',
+        dest: 'public/assets/',
+        flatten: true
     browserify:
       dist:
         files:
