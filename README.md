@@ -1,7 +1,7 @@
 # Keen-gather
 
 Real-time browser-based location tracking system. Features are still being
-added, so watch this space.
+added, so watch this space. Now on spcogg's computer. Too.
 
 ## TODO
 
