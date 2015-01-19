@@ -1,6 +1,7 @@
 # Keen-gather
 
-Real-time browser-based location tracking system. Spcogg has arrived!
+Real-time browser-based location tracking system. Features are still being
+added, so watch this space.
 
 ## TODO
 
